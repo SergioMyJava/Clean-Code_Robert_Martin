@@ -1,8 +1,8 @@
 Clean Code. Robert Martin
 ===========================
 
- 1. [Clean Code](#Clean Code)
- 2. [Meaningful Names](#Meaningful Names)
+ 1. [Clean Code](#clean-code)
+ 2. [Meaningful Names](#meaningful-names)
  3. [Functions](#Functions)
  4. [Comments](#Comments)
  5. [Formatting]()
@@ -20,7 +20,7 @@ Clean Code. Robert Martin
  17. [Smells and Heuristics]()
   
   
-  ## **Clean Code**
+  ## Clean Code
   
   If you have been programming for more than two or three years, you probably have been bogged down in someone 
   else’s - or in your own - erratic course. Slowing can be quite significant. For some year or two groups, very quickly
