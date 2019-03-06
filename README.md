@@ -3,8 +3,8 @@ Clean Code. Robert Martin
 
  1. [Clean Code](#clean-code)
  2. [Meaningful Names](#meaningful-names)
- 3. [Functions](#Functions)
- 4. [Comments](#Comments)
+ 3. [Functions](#functions)
+ 4. [Comments](#comments)
  5. [Formatting]()
  6. [Objects and Data Structures]()
  7. [Error Handling]()
@@ -189,3 +189,9 @@ Clean Code. Robert Martin
   ```
   
   ## **Comments**
+  
+  Nothing helps in the proper way to comment. Nothing clutters the module as empty and peremptory comments. Nothing does
+  so much harm, like an old commentary that has lost relevance, spreading lies and misinformation.
+  
+  The older the commentary, the farther it is from the code it describes, the greater the likelihood that it is simply 
+  incorrect.
