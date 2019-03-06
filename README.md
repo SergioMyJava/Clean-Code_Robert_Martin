@@ -1,7 +1,7 @@
 Clean Code. Robert Martin
 ===========================
 
- - 1 . [Chapter 1: Clean Code][#after]
+ - 1 . [Chapter 1: Clean Code](#after)
  
  Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are 
  guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of 
