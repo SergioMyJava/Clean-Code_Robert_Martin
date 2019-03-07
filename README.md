@@ -5,11 +5,11 @@ Clean Code. Robert Martin
  2. [Meaningful Names](#meaningful-names)
  3. [Functions](#functions)
  4. [Comments](#comments)
- 5. [Formatting]()
- 6. [Objects and Data Structures]()
- 7. [Error Handling]()
- 8. [Boundaries]()
- 9. [Unit Tests]()
+ 5. [Formatting](#formatting)
+ 6. [Objects and Data Structures](#objects-and-data-structures)
+ 7. [Error Handling](#error-handling)
+ 8. [Boundaries](#boundaries)
+ 9. [Unit Tests](#unit-tests)
  10. [Classes]()
  11. [Systems]()
  12. [Emergence]()
@@ -195,3 +195,150 @@ Clean Code. Robert Martin
   
   The older the commentary, the farther it is from the code it describes, the greater the likelihood that it is simply 
   incorrect.
+  
+  Sometimes it is useful to leave notes “for the future” in the form of comments // TODO.
+  
+  Headlines attract attention only if they are not found too often. Use them sparingly and only when they bring tangible
+  benefits.
+  
+  In programming, rarely habits are more disgusting than commenting off unused code. Never do it!
+  
+  Do not present system-level information in the context of local commentary.
+  
+  ## **Formatting**
+  
+  Code formatting is aimed at information transfer, and information transfer is the primary task of a professional 
+  developer.
+  
+  Almost all the code is read from left to right and from top to bottom. Each line represents an expression or 
+  condition, and each group of lines represents a complete thought.
+  
+  Concepts that are closely related to each other should be vertically close to each other.
+  
+  Variables should be declared as close as possible to the place of use. In some cases, a variable may be declared at 
+  the beginning of a block or immediately before a cycle in a long function.
+  
+  Some code fragments require that they be placed close to other fragments. Such fragments have a certain conceptual 
+  relationship. The stronger the relationship, the less should be the vertical distance between them.
+  
+  The called function must be located below the calling function.
+  
+  The source file has a hierarchical structure. File-level commands (such as most class declarations) do not indent. 
+  Methods in classes are shifted one level to the right of the class level. Implementations of these methods are shifted
+  one level to the right of the class declaration. Block implementations are shifted one level to the right of their 
+  outer blocks, and so on.
+  
+  **Bad**
+  ```java
+  public class FitNesseServer implements SocketServer { private FitNesseContext
+  context; public FitNesseServer(FitNesseContext context) { this.context =
+  context; } public void serve(Socket s) { serve(s, 10000); } public void
+  serve(Socket s, long requestTimeout) { try { FitNesseExpediter sender = new
+  FitNesseExpediter(s, context);
+  sender.setRequestParsingTimeLimit(requestTimeout); sender.start(); }
+  catch(Exception e) { e.printStackTrace(); } } }
+  ```
+  
+  
+   **Good:**
+  ```java
+  public class FitNesseServer implements SocketServer { 
+    private FitNesseContext context;
+    public FitNesseServer(FitNesseContext context) {
+      this.context = context;
+    }
+    public void serve(Socket s) {
+      serve(s, 10000);
+    }
+    public void serve(Socket s, long requestTimeout) {
+    try {
+      FitNesseExpediter sender = new FitNesseExpediter(s, context);
+      sender.setRequestParsingTimeLimit(requestTimeout);
+      sender.start();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+  The code of the software product must be issued in the same style.It should not look like it was written by several 
+  personalities who disagree about the design. In no case do not complicate the source code, allowing its design in 
+  several different styles.
+  
+  ## **Objects and Data Structures**
+  
+  To find the best way to present the data contained in an object, you need to seriously consider. Thoughtless addition 
+  of reading and writing methods is the worst possible option.
+  
+  Objects hide their data behind abstractions and provide functions that work with this data. Data structures disclose 
+  their data and have no meaningful functions.
+  
+  Procedural code (code using data structures) makes it easy to add new functions without changing existing data 
+  structures. Object-oriented code, on the other hand, makes it easy to add new classes without changing existing 
+  functions.
+  
+  Class C method f should be limited to calling methods of the following objects:
+   * C;
+   * objects created by f;
+   * objects passed to f as argument;
+   * objects stored in instance variable C.
+   
+  Objects provide behavior and hide data. This allows the programmer to easily add new kinds of objects without changing
+  the existing behavior. On the other hand, objects make it difficult to add new behavior to existing objects. Data 
+  structures provide data, but do not have any significant behavior. They simplify the addition of new behavior to 
+  existing data structures, but make it difficult to add new data structures to existing functions.
+  
+  ## **Error Handling**
+  
+  Writing code that can trigger exceptions is recommended to start with try-catch-finally.
+  
+  Use unverifiable exceptions.There are no checked exceptions in C #, and despite all the gallant attempts, they never 
+  appeared in C ++. They are also not in Python and Ruby.However, reliable programs can be written in all these 
+  languages. The price of checked exceptions is a violation of the principle of openness / closeness.
+  
+  Each exception that is raised in a program must contain enough contextual information to determine the source and 
+  location of the error.
+  
+  By returning null, we are actually creating extra work for ourselves, and unnecessary problems for the caller. It is 
+  worth skipping just one null check, and the application “goes into a corkscrew”.
+  
+  If you want to return null from a method, consider issuing an exception or returning an “special case” object.
+  
+  Returning null from methods is bad, but it is even worse to pass null when called.
+  
+  In most programming languages, there is no good way to handle the random transfer of null from the caller. And if so,
+  it is reasonable to prohibit the transmission of null by default.
+   
+  ## **Boundaries**
+  
+  We recommend limiting the transmission of the Map (or any other boundary interface) on the system. If you use a 
+  interface like Map, keep it inside a class (or a closely related family of classes) in which it is used.
+  
+  To ensure that borders with third-party code do not create problems in our projects, we minimize the number of calls 
+  to them. To do this, you can use wrappers, as in the Map example, or implement the ADAPTER pattern to match our ideal 
+  interface with the real one received from the developers.
+  
+  ## **Unit Tests**
+  
+  The first law. Do not write the product code until you write a failing unit test.
+  The second law. Do not write a unit test in a volume larger than necessary for failure. The impossibility of compiling
+  is a failure.
+  The third law. Do not write the product code in the amount larger than necessary to pass the current failing test.
+  
+  Tests "in haste" are equivalent to the complete absence of tests, if not worse. The fact is that tests should change 
+  as the product code develops. The more primitive the tests, the harder it is to change them. If the test code is 
+  heavily entangled, it may be that writing a new product code will take less time than trying to cram new tests into 
+  an updated package.
+  
+  The test code is as important as the product code.
+  
+  If you do not maintain the purity of your tests, then you lose them. And without tests, all that provides the 
+  flexibility of the product code is lost.
+  
+  Readability in unit tests is even more important than in the product code.
+  
+  Much of what you will never do in a product exploitation environment looks absolutely normal in a testing environment. 
+  Usually we are talking about the cost of memory or the efficiency of the processor - but never about the problems of 
+  cleanliness of the code.
