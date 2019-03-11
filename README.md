@@ -10,9 +10,9 @@ Clean Code. Robert Martin
  7. [Error Handling](#error-handling)
  8. [Boundaries](#boundaries)
  9. [Unit Tests](#unit-tests)
- 10. [Classes]()
- 11. [Systems]()
- 12. [Emergence]()
+ 10. [Classes](#classes)
+ 11. [Systems](#systems)
+ 12. [Emergence](#emergence)
  13. [Concurrency]()
  14. [Successive Refinement]()
  15. [JUnit Internals]()
@@ -342,3 +342,81 @@ Clean Code. Robert Martin
   Much of what you will never do in a product exploitation environment looks absolutely normal in a testing environment. 
   Usually we are talking about the cost of memory or the efficiency of the processor - but never about the problems of 
   cleanliness of the code.
+  
+  The number of assert directives in the test should be minimized.
+  
+  Five characteristics for good tests:
+* Tests must be performed quickly.
+* Tests should not depend on each other.
+* Tests should give repeatable results in any environment.
+* The result of the test should be a logical sign. The test either passed or did not pass.
+* Tests should be created in a timely manner.
+
+  For the "health" of the project tests are no less important than the product code. Or maybe they are even more 
+  important because the tests retain and improve the flexibility, maintainability and reusability of the product code.
+  
+  ## **Classes**
+  
+  The list of variables is usually followed by open functions.
+  
+  Classes should be compact.
+  
+  If the class fails to pick a clear one, the short name is probably too large.
+  
+  The principle of common responsibility (SRP1) states that a class or module must have one - and only one - reason for 
+  the change.
+  
+  Try to separate the variables and methods into two or more classes so that the new classes have higher connectivity.
+  
+  ## **Systems**
+  
+  The concept of sharing responsibility is one of the oldest and most important techniques.
+  
+  In software systems, the initialization phase, in which the application objects are constructed and the main 
+  dependencies “stick together”, must also be separated from the runtime logic, which receives control after its 
+  completion.
+  
+  This is the most important difference between software systems and physical ones. The architecture of software systems 
+  can be developed consistently, if we ensure the correct division of responsibility.
+  
+  Finally, the most comprehensive tool for separating areas of responsibility through the use of aspects is AspectJ1, 
+  a Java extension that provides “full-fledged” support for aspects like modular designs. There are enough pure Java 
+  solutions based on Spring and JBoss for 80–90% of situations in which aspects are applied.
+  
+  If you can write the domain logic of your application in the form of POJO-objects separated from any architectural 
+  areas of responsibility at the code level, then you will have the opportunity to conduct full-fledged tests of your 
+  architecture.
+  
+  The optimal system architecture consists of modular areas of responsibility, each of which is implemented on the basis 
+  of POJO objects. Areas are integrated with each other through aspects or similar means that minimally interfere with 
+  their work. Such architecture can be built on the basis of development methodology through testing, as well as program 
+  code.
+  
+  As you know, it is best to entrust responsible decisions to the most qualified. However, we often forget that 
+  decision-making is best postponed until the last moment (at the moment when all the information is known, or almost 
+  all of the problems that may arise on the project).
+  
+  The flexibility of a POJO system with modular areas of responsibility allows you to make optimal, timely decisions 
+  based on the latest information. In addition, it helps reduce the complexity of such solutions.
+  
+  Standards simplify the reuse of ideas and components, attracting people with the necessary experience, translating 
+  successful ideas and linking components. However, the process of creating a standard sometimes takes too much time 
+  (and the industry does not stand still), with the result that standards lose touch with the real needs of the people 
+  they should serve.
+  
+  Subject-oriented languages allow you to express in the form of POJO-objects all levels of abstraction and all 
+  application domains, from high-level policies to low-level technical details.
+  
+  Clean should be not only the code, but also the system architecture.
+  
+  Regardless of whether you are designing a whole system or its individual modules, remember: use the simplest solution 
+  possible.
+  
+  ## **Emergence**
+  
+  According to Kent, an architecture can be considered “simple” if it:
+  * ensures that all tests pass (The system, thoroughly tested and passed all tests, is controlled.)
+  * does not contain duplicate code
+  * expresses the intentions of the programmer,
+  * uses the minimum number of classes and methods.
+  The rules are listed in order of importance.
