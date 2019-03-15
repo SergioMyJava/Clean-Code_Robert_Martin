@@ -492,7 +492,7 @@ Clean Code. Robert Martin
   
   ## **Smells and Heuristics**
   
-     ###Comments
+     ### Comments
 
         It is inappropriate to post information in comments that is more convenient to store in other sources: in source 
         control systems, in version control systems and in other logging systems.  
@@ -506,7 +506,7 @@ Clean Code. Robert Martin
         
         After seeing the commented out code, delete it! Do not worry, the source control system will not forget it.
   
-     ###Workspace
+     ### Workspace
      
         Building a project should be one trivial operation. Without sampling numerous fragments from source control. 
         Without a long series of unintelligible commands or context-sensitive scripts to build individual elements. 
@@ -515,7 +515,7 @@ Clean Code. Robert Martin
         All unit tests should be performed with just one command. worst case one simple command is entered on the 
         command line.
         
-     ###Functions
+     ### Functions
      
         Functions should have a small number of arguments. Best of all, when there are no arguments at all; functions 
         with one, two, and three arguments follow.   
@@ -526,7 +526,7 @@ Clean Code. Robert Martin
         
         If the method is never called in the program, then it should be deleted.
         
-     ###Different
+     ### Different
      
         Ideally, the source file should contain code in the same language.at the very least, both the amount and amount 
         of code in additional languages in the source files should be minimized.  
@@ -573,4 +573,22 @@ Clean Code. Robert Martin
         
         The time reference is implemented by creating a “relay race”.
         
+        Encapsulate boundary conditions
+        
+        Make sure the names are meaningful.
+        
+       Names must reflect the level of abstraction at which the class or function operates.
+       
+       Names are easier to understand if they are based on existing conventions or standard notation.
+        
+       The length of the name must match the length of its scope.
+       
+       Names should describe everything that a function, variable, or class does.
+       
+       The test package should test everything that might break.
+       
+       Mistakes are often collected in groups.
+       
+       Do everything you need to make your tests run fast.
+       
         
