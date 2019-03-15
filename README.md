@@ -13,11 +13,8 @@ Clean Code. Robert Martin
  10. [Classes](#classes)
  11. [Systems](#systems)
  12. [Emergence](#emergence)
- 13. [Concurrency]()
- 14. [Successive Refinement]()
- 15. [JUnit Internals]()
- 16. [Refactoring SerialDate]()
- 17. [Smells and Heuristics]()
+ 13. [Concurrency](#concurrency)
+ 14. [Smells and Heuristics](#smells-and-heuristics)
   
   
   ## Clean Code
@@ -420,3 +417,160 @@ Clean Code. Robert Martin
   * expresses the intentions of the programmer,
   * uses the minimum number of classes and methods.
   The rules are listed in order of importance.
+  
+  Our goal is to make the system compact, but at the same time preserve the compactness of functions and classes. 
+  However, it should be remembered that of the four simple architecture rules, this rule has the lowest priority. 
+  Minimizing the number of functions and classes is important, but passing tests, eliminating duplicates and expressive 
+  code is still more important.
+  
+  ## **Concurrency**
+  
+  A multitude of common myths and misconceptions are associated with multithreading:
+  
+  * Multithreading always improves performance.
+  Multithreading improves performance, but only with a relatively large wait time, which could be effectively used by 
+  other threads or processors.
+  
+  * Writing a multi-threaded code does not change the architecture of the program.
+  The architecture of a multithreaded algorithm may differ significantly from the architecture of a single-threaded 
+  system. Separating the “what” from the “when” usually has a huge impact on the structure of the system.
+  
+  * When working with a container (for example, a web container or an EJB container) it is not necessary to understand 
+  the problems of multi-threaded programming.
+  It is advisable to know how the container works and how to protect against problems of simultaneous updating and 
+  deadlocks.
+  
+  Some more objective statements related to writing multi-threaded code:
+  
+  * Multithreading is associated with certain additional costs - both in terms of productivity, and writing additional 
+    code.
+  * Proper implementation of multithreading is difficult even for simple tasks.
+  * Errors in multi-threaded code are usually not reproduced, therefore they are often ignored as random deviations1 
+    (and not as systematic defects that they really are).
+  * Multithreading often requires fundamental changes in the design strategy.
+  
+  Separate code related to multithreading implementation from the rest of the code.Corollary: limit the area data 
+  visibility.
+  
+  Be serious about data encapsulation; severely restrict access to all shared data.
+
+  Streams should be as independent as possible.
+  
+  Logical partitioning patterns of program behavior.
+  
+         1. Сonsumer model makers.
+            One or more producer threads create jobs and put them in a buffer or queue. One or more consumer threads 
+            retrieve jobs from the queue and execute them
+  
+         2. Model "readers-writers"
+            The designer must find a balance between the needs of readers and writers to ensure the correct mode of 
+            operation, normal system performance and avoid lag.
+            
+         3. Model "dining philosophers problem"
+            Applications compete for resources from a limited set. If you carelessly design such a system, then the 
+            competition between threads can lead to interlocks, reversible locks, and a drop in productivity and work 
+            efficiency. 
+            
+  Beware of dependencies between synchronized methods. If the generic class contains more than one synchronized method, 
+  your system may not be designed correctly.
+  
+  Synchronized sections must have a minimum size. The code should contain as few synchronized sections as possible.
+  
+  Testing does not guarantee the correct operation of the code. However, quality testing minimizes risk.
+  
+  Treat non-periodic failures as signs of potential multithreading problems.
+  
+  Start by debugging non-threaded core code.
+  
+  Implement your multithreaded code so that it can be executed in various configurations.
+  
+  Provide logical isolation for multi-threaded code configurations.
+  
+  Test the program with the number of threads in excess of the number of processors.
+  
+  Test the program on different platforms.
+  
+  ## **Smells and Heuristics**
+  
+     ###Comments
+
+        It is inappropriate to post information in comments that is more convenient to store in other sources: in source 
+        control systems, in version control systems and in other logging systems.  
+        
+        A comment whose contents have lost relevance is considered obsolete.
+        
+        Excess is considered to be a comment describing something that is already obvious.
+        
+        Choose your words carefully. Keep track of spelling and punctuation. Do not write messy. Do not explain the 
+        obvious. Be concise.
+        
+        After seeing the commented out code, delete it! Do not worry, the source control system will not forget it.
+  
+     ###Workspace
+     
+        Building a project should be one trivial operation. Without sampling numerous fragments from source control. 
+        Without a long series of unintelligible commands or context-sensitive scripts to build individual elements. 
+        Without searching for additional files in the format of JAR, XML and other artifacts necessary for your system.
+        
+        All unit tests should be performed with just one command. worst case one simple command is entered on the 
+        command line.
+        
+     ###Functions
+     
+        Functions should have a small number of arguments. Best of all, when there are no arguments at all; functions 
+        with one, two, and three arguments follow.   
+        
+        Output arguments are unnatural.
+        
+        Eliminate logical arguments from functions.
+        
+        If the method is never called in the program, then it should be deleted.
+        
+     ###Different
+     
+        Ideally, the source file should contain code in the same language.at the very least, both the amount and amount 
+        of code in additional languages in the source files should be minimized.  
+        
+        Any function or class must implement the behavior that the programmer can expect from them. 
+        
+        Disabling security is risky.
+        
+        Avoid duplication.
+        
+        All low-level concepts should be concentrated in derived classes, and all high-level concepts are combined in 
+        the base class.
+        
+        In general, base classes should not know anything about their derived classes.
+        
+        Placing the derived and base classes in different jar files, in which the base jar files do not know anything 
+        about the contents of the derived jar files, allows you to organize the deployment of systems in the format of 
+        discrete, independent components.
+        
+        Good developers know how to limit the interfaces of their classes and modules. The less methods a class 
+        contains, the better. The fewer variables a function is known, the better. The fewer instance variables the 
+        class contains, the better.
+        
+        Do not regret time - figure out where the declaration of a particular function, constant or variable should be 
+        located.
+        
+        In general, give preference to non-static methods over static ones.
+        
+        If one module depends on another, the dependence must be not only logical, but also physical.
+        
+        Before using switch, consider using polymorphism.
+        
+        All function commands must be formulated at the same level of abstraction, which is located one level below the 
+        operation described by the function name.
+        
+        If A interacts with B, and B interacts with C, then modules using A should not be aware of C.
+        
+        If you use two or more classes from a package, import the entire package.
+        
+        For each type of choice, the program must not contain more than one switch command. Multiple switch 
+        constructions should be replaced with polymorphic objects.
+        
+        Functions must perform one operation.
+        
+        The time reference is implemented by creating a “relay race”.
+        
+        
