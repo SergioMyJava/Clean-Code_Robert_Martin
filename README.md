@@ -240,25 +240,25 @@ Clean Code. Robert Martin
    **Good:**
   ```java
   public class FitNesseServer implements SocketServer { 
-    private FitNesseContext context;
-    public FitNesseServer(FitNesseContext context) {
-      this.context = context;
-    }
-    public void serve(Socket s) {
-      serve(s, 10000);
-    }
-    public void serve(Socket s, long requestTimeout) {
-    try {
-      FitNesseExpediter sender = new FitNesseExpediter(s, context);
-      sender.setRequestParsingTimeLimit(requestTimeout);
-      sender.start();
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
+  private FitNesseContext context;
+  public FitNesseServer(FitNesseContext context) {
+  this.context = context;
   }
-}
-```
+  public void serve(Socket s) {
+  serve(s, 10000);
+  }
+  public void serve(Socket s, long requestTimeout) {
+  try {
+  FitNesseExpediter sender = new FitNesseExpediter(s, context);
+  sender.setRequestParsingTimeLimit(requestTimeout);
+  sender.start();
+  }
+  catch (Exception e) {
+  e.printStackTrace();
+  }
+  }
+  }
+  ```
 
   The code of the software product must be issued in the same style.It should not look like it was written by several 
   personalities who disagree about the design. In no case do not complicate the source code, allowing its design in 
@@ -277,10 +277,10 @@ Clean Code. Robert Martin
   functions.
   
   Class C method f should be limited to calling methods of the following objects:
-   * C;
-   * objects created by f;
-   * objects passed to f as argument;
-   * objects stored in instance variable C.
+* C;
+* objects created by f;
+* objects passed to f as argument;
+* objects stored in instance variable C.
    
   Objects provide behavior and hide data. This allows the programmer to easily add new kinds of objects without changing
   the existing behavior. On the other hand, objects make it difficult to add new behavior to existing objects. Data 
@@ -412,10 +412,10 @@ Clean Code. Robert Martin
   ## **Emergence**
   
   According to Kent, an architecture can be considered “simple” if it:
-  * ensures that all tests pass (The system, thoroughly tested and passed all tests, is controlled.)
-  * does not contain duplicate code
-  * expresses the intentions of the programmer,
-  * uses the minimum number of classes and methods.
+* ensures that all tests pass (The system, thoroughly tested and passed all tests, is controlled.)
+* does not contain duplicate code
+* expresses the intentions of the programmer,
+* uses the minimum number of classes and methods.
   The rules are listed in order of importance.
   
   Our goal is to make the system compact, but at the same time preserve the compactness of functions and classes. 
@@ -427,27 +427,27 @@ Clean Code. Robert Martin
   
   A multitude of common myths and misconceptions are associated with multithreading:
   
-  * Multithreading always improves performance.
+* Multithreading always improves performance.
   Multithreading improves performance, but only with a relatively large wait time, which could be effectively used by 
   other threads or processors.
   
-  * Writing a multi-threaded code does not change the architecture of the program.
+* Writing a multi-threaded code does not change the architecture of the program.
   The architecture of a multithreaded algorithm may differ significantly from the architecture of a single-threaded 
   system. Separating the “what” from the “when” usually has a huge impact on the structure of the system.
   
-  * When working with a container (for example, a web container or an EJB container) it is not necessary to understand 
+* When working with a container (for example, a web container or an EJB container) it is not necessary to understand 
   the problems of multi-threaded programming.
   It is advisable to know how the container works and how to protect against problems of simultaneous updating and 
   deadlocks.
   
   Some more objective statements related to writing multi-threaded code:
   
-  * Multithreading is associated with certain additional costs - both in terms of productivity, and writing additional 
+* Multithreading is associated with certain additional costs - both in terms of productivity, and writing additional 
     code.
-  * Proper implementation of multithreading is difficult even for simple tasks.
-  * Errors in multi-threaded code are usually not reproduced, therefore they are often ignored as random deviations1 
+* Proper implementation of multithreading is difficult even for simple tasks.
+* Errors in multi-threaded code are usually not reproduced, therefore they are often ignored as random deviations1 
     (and not as systematic defects that they really are).
-  * Multithreading often requires fundamental changes in the design strategy.
+* Multithreading often requires fundamental changes in the design strategy.
   
   Separate code related to multithreading implementation from the rest of the code.Corollary: limit the area data 
   visibility.
@@ -458,18 +458,18 @@ Clean Code. Robert Martin
   
   Logical partitioning patterns of program behavior.
   
-         1. Сonsumer model makers.
-            One or more producer threads create jobs and put them in a buffer or queue. One or more consumer threads 
-            retrieve jobs from the queue and execute them
+1. Сonsumer model makers.
+   One or more producer threads create jobs and put them in a buffer or queue. One or more consumer threads 
+   retrieve jobs from the queue and execute them
   
-         2. Model "readers-writers"
-            The designer must find a balance between the needs of readers and writers to ensure the correct mode of 
-            operation, normal system performance and avoid lag.
+2. Model "readers-writers"
+   The designer must find a balance between the needs of readers and writers to ensure the correct mode of 
+   operation, normal system performance and avoid lag.
             
-         3. Model "dining philosophers problem"
-            Applications compete for resources from a limited set. If you carelessly design such a system, then the 
-            competition between threads can lead to interlocks, reversible locks, and a drop in productivity and work 
-            efficiency. 
+3. Model "dining philosophers problem"
+   Applications compete for resources from a limited set. If you carelessly design such a system, then the 
+   competition between threads can lead to interlocks, reversible locks, and a drop in productivity and work 
+   efficiency. 
             
   Beware of dependencies between synchronized methods. If the generic class contains more than one synchronized method, 
   your system may not be designed correctly.
@@ -492,103 +492,103 @@ Clean Code. Robert Martin
   
   ## **Smells and Heuristics**
   
-     ### Comments
+  ### Comments
 
-        It is inappropriate to post information in comments that is more convenient to store in other sources: in source 
-        control systems, in version control systems and in other logging systems.  
+  It is inappropriate to post information in comments that is more convenient to store in other sources: in source 
+  control systems, in version control systems and in other logging systems.  
         
-        A comment whose contents have lost relevance is considered obsolete.
+  A comment whose contents have lost relevance is considered obsolete.
         
-        Excess is considered to be a comment describing something that is already obvious.
+  Excess is considered to be a comment describing something that is already obvious.
         
-        Choose your words carefully. Keep track of spelling and punctuation. Do not write messy. Do not explain the 
-        obvious. Be concise.
+  Choose your words carefully. Keep track of spelling and punctuation. Do not write messy. Do not explain the 
+  obvious. Be concise.
         
-        After seeing the commented out code, delete it! Do not worry, the source control system will not forget it.
+  After seeing the commented out code, delete it! Do not worry, the source control system will not forget it.
   
-     ### Workspace
+  ### Workspace
      
-        Building a project should be one trivial operation. Without sampling numerous fragments from source control. 
-        Without a long series of unintelligible commands or context-sensitive scripts to build individual elements. 
-        Without searching for additional files in the format of JAR, XML and other artifacts necessary for your system.
+  Building a project should be one trivial operation. Without sampling numerous fragments from source control. 
+  Without a long series of unintelligible commands or context-sensitive scripts to build individual elements. 
+  Without searching for additional files in the format of JAR, XML and other artifacts necessary for your system.
         
-        All unit tests should be performed with just one command. worst case one simple command is entered on the 
-        command line.
+  All unit tests should be performed with just one command. worst case one simple command is entered on the 
+  command line.
         
-     ### Functions
+  ### Functions
      
-        Functions should have a small number of arguments. Best of all, when there are no arguments at all; functions 
-        with one, two, and three arguments follow.   
+  Functions should have a small number of arguments. Best of all, when there are no arguments at all; functions 
+  with one, two, and three arguments follow.   
         
-        Output arguments are unnatural.
+  Output arguments are unnatural.
         
-        Eliminate logical arguments from functions.
+  Eliminate logical arguments from functions.
         
-        If the method is never called in the program, then it should be deleted.
+  If the method is never called in the program, then it should be deleted.
         
-     ### Different
+  ### Different
      
-        Ideally, the source file should contain code in the same language.at the very least, both the amount and amount 
-        of code in additional languages in the source files should be minimized.  
+  Ideally, the source file should contain code in the same language.at the very least, both the amount and amount 
+  of code in additional languages in the source files should be minimized.  
         
-        Any function or class must implement the behavior that the programmer can expect from them. 
+  Any function or class must implement the behavior that the programmer can expect from them. 
         
-        Disabling security is risky.
+  Disabling security is risky.
         
-        Avoid duplication.
+  Avoid duplication.
         
-        All low-level concepts should be concentrated in derived classes, and all high-level concepts are combined in 
-        the base class.
-        
-        In general, base classes should not know anything about their derived classes.
-        
-        Placing the derived and base classes in different jar files, in which the base jar files do not know anything 
-        about the contents of the derived jar files, allows you to organize the deployment of systems in the format of 
-        discrete, independent components.
-        
-        Good developers know how to limit the interfaces of their classes and modules. The less methods a class 
-        contains, the better. The fewer variables a function is known, the better. The fewer instance variables the 
-        class contains, the better.
-        
-        Do not regret time - figure out where the declaration of a particular function, constant or variable should be 
-        located.
-        
-        In general, give preference to non-static methods over static ones.
-        
-        If one module depends on another, the dependence must be not only logical, but also physical.
-        
-        Before using switch, consider using polymorphism.
-        
-        All function commands must be formulated at the same level of abstraction, which is located one level below the 
-        operation described by the function name.
-        
-        If A interacts with B, and B interacts with C, then modules using A should not be aware of C.
-        
-        If you use two or more classes from a package, import the entire package.
-        
-        For each type of choice, the program must not contain more than one switch command. Multiple switch 
-        constructions should be replaced with polymorphic objects.
-        
-        Functions must perform one operation.
-        
-        The time reference is implemented by creating a “relay race”.
-        
-        Encapsulate boundary conditions
-        
-        Make sure the names are meaningful.
-        
-       Names must reflect the level of abstraction at which the class or function operates.
+  All low-level concepts should be concentrated in derived classes, and all high-level concepts are combined in 
+  the base class.
        
-       Names are easier to understand if they are based on existing conventions or standard notation.
+  In general, base classes should not know anything about their derived classes.
         
-       The length of the name must match the length of its scope.
+  Placing the derived and base classes in different jar files, in which the base jar files do not know anything 
+  about the contents of the derived jar files, allows you to organize the deployment of systems in the format of 
+  discrete, independent components.
+        
+  Good developers know how to limit the interfaces of their classes and modules. The less methods a class 
+  contains, the better. The fewer variables a function is known, the better. The fewer instance variables the 
+  class contains, the better.
+        
+  Do not regret time - figure out where the declaration of a particular function, constant or variable should be 
+  located.
+        
+  In general, give preference to non-static methods over static ones.
+        
+  If one module depends on another, the dependence must be not only logical, but also physical.
+        
+  Before using switch, consider using polymorphism.
+        
+  All function commands must be formulated at the same level of abstraction, which is located one level below the 
+  operation described by the function name.
+        
+  If A interacts with B, and B interacts with C, then modules using A should not be aware of C.
+        
+  If you use two or more classes from a package, import the entire package.
+        
+  For each type of choice, the program must not contain more than one switch command. Multiple switch 
+  constructions should be replaced with polymorphic objects.
+        
+  Functions must perform one operation.
+        
+  The time reference is implemented by creating a “relay race”.
+        
+  Encapsulate boundary conditions
+        
+  Make sure the names are meaningful.
+        
+  Names must reflect the level of abstraction at which the class or function operates.
        
-       Names should describe everything that a function, variable, or class does.
+  Names are easier to understand if they are based on existing conventions or standard notation.
+        
+  The length of the name must match the length of its scope.
        
-       The test package should test everything that might break.
+  Names should describe everything that a function, variable, or class does.
        
-       Mistakes are often collected in groups.
+  The test package should test everything that might break.
+      
+  Mistakes are often collected in groups.
        
-       Do everything you need to make your tests run fast.
+  Do everything you need to make your tests run fast.
        
         
